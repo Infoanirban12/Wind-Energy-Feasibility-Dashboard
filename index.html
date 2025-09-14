@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wind Energy Feasibility Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="header-left">
+                    <h1 class="header-title">Wind Energy Feasibility Dashboard</h1>
+                    <p class="header-subtitle">Real-time analysis and site assessment for renewable energy projects</p>
+                </div>
+                <div class="header-right">
+                    <div class="current-time" id="currentTime"></div>
+                    <div class="key-metrics">
+                        <div class="metric-item">
+                            <span class="metric-label">Sites Assessed</span>
+                            <span class="metric-value">4</span>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-label">Avg Capacity Factor</span>
+                            <span class="metric-value">26%</span>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-label">Forecast Accuracy</span>
+                            <span class="metric-value">84%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs">
+        <div class="container">
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="overview">Overview</button>
+                <button class="tab-btn" data-tab="site-analysis">Site Analysis</button>
+                <button class="tab-btn" data-tab="forecasting">Forecasting</button>
+                <button class="tab-btn" data-tab="economic-analysis">Economic Analysis</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Overview Tab -->
+            <div id="overview" class="tab-content active">
+                <div class="overview-section">
+                    <div class="kpi-cards">
+                        <div class="card kpi-card">
+                            <h3>Current Wind Conditions</h3>
+                            <div class="kpi-value">
+                                <span class="value-number" id="currentWindSpeed">7.2</span>
+                                <span class="value-unit">m/s</span>
+                            </div>
+                            <div class="status status--success">Optimal</div>
+                        </div>
+                        <div class="card kpi-card">
+                            <h3>Average Wind Speed</h3>
+                            <div class="kpi-value">
+                                <span class="value-number">7.9</span>
+                                <span class="value-unit">m/s</span>
+                            </div>
+                            <div class="kpi-trend">↑ 5% from last month</div>
+                        </div>
+                        <div class="card kpi-card">
+                            <h3>Best Site Capacity Factor</h3>
+                            <div class="kpi-value">
+                                <span class="value-number">35</span>
+                                <span class="value-unit">%</span>
+                            </div>
+                            <div class="kpi-location">Site C - Mountain Ridge</div>
+                        </div>
+                        <div class="card kpi-card">
+                            <h3>Estimated Annual Energy</h3>
+                            <div class="kpi-value">
+                                <span class="value-number">18,236</span>
+                                <span class="value-unit">MWh</span>
+                            </div>
+                            <div class="kpi-trend">All sites combined</div>
+                        </div>
+                    </div>
+
+                    <div class="charts-row">
+                        <div class="card chart-card">
+                            <div class="chart-header">
+                                <h3>Wind Speed vs Power Output</h3>
+                                <button class="btn btn--sm btn--outline">Export</button>
+                            </div>
+                            <div class="chart-container" style="position: relative; height: 300px;">
+                                <canvas id="powerCurveChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="card chart-card">
+                            <div class="chart-header">
+                                <h3>Monthly Performance Trends</h3>
+                                <button class="btn btn--sm btn--outline">Export</button>
+                            </div>
+                            <div class="chart-container" style="position: relative; height: 300px;">
+                                <canvas id="monthlyTrendsChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Site Analysis Tab -->
+            <div id="site-analysis" class="tab-content">
+                <div class="site-analysis-section">
+                    <div class="card">
+                        <div class="card__header">
+                            <h3>Site Comparison</h3>
+                            <div class="site-controls">
+                                <button class="btn btn--sm btn--outline" id="exportSiteData">Export Data</button>
+                                <select class="form-control" id="sortSites">
+                                    <option value="name">Sort by Name</option>
+                                    <option value="suitability">Sort by Suitability</option>
+                                    <option value="capacity">Sort by Capacity Factor</option>
+                                    <option value="revenue">Sort by Revenue</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="card__body">
+                            <div class="site-table-container">
+                                <table class="site-table" id="siteTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Site Name</th>
+                                            <th>Suitability</th>
+                                            <th>Avg Wind Speed (m/s)</th>
+                                            <th>Capacity Factor (%)</th>
+                                            <th>Annual Energy (MWh)</th>
+                                            <th>Distance to Grid (km)</th>
+                                            <th>Environmental</th>
+                                            <th>Annual Revenue ($)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="siteTableBody">
+                                        <!-- Dynamic content -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="charts-row">
+                        <div class="card chart-card">
+                            <div class="chart-header">
+                                <h3>Site Performance Ranking</h3>
+                            </div>
+                            <div class="chart-container" style="position: relative; height: 300px;">
+                                <canvas id="siteRankingChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="card chart-card">
+                            <div class="chart-header">
+                                <h3>Site Location Map</h3>
+                            </div>
+                            <div class="map-container">
+                                <div class="site-map" id="siteMap"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Forecasting Tab -->
+            <div id="forecasting" class="tab-content">
+                <div class="forecasting-section">
+                    <div class="forecast-summary">
+                        <div class="card">
+                            <div class="card__header">
+                                <h3>30-Day Wind Speed Forecast</h3>
+                                <div class="model-info">
+                                    <span class="status status--success">Model R² = 84%</span>
+                                    <span class="status status--info">RMSE = 1.42 m/s</span>
+                                </div>
+                            </div>
+                            <div class="card__body">
+                                <div class="chart-container" style="position: relative; height: 350px;">
+                                    <canvas id="windForecastChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="charts-row">
+                        <div class="card">
+                            <div class="chart-header">
+                                <h3>Power Output Predictions</h3>
+                            </div>
+                            <div class="chart-container" style="position: relative; height: 300px;">
+                                <canvas id="powerForecastChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="chart-header">
+                                <h3>Model Performance Metrics</h3>
+                            </div>
+                            <div class="metrics-grid">
+                                <div class="metric-row">
+                                    <span class="metric-label">Wind Speed R²</span>
+                                    <span class="metric-value">0.160</span>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 16%"></div>
+                                    </div>
+                                </div>
+                                <div class="metric-row">
+                                    <span class="metric-label">Wind Speed RMSE</span>
+                                    <span class="metric-value">1.42 m/s</span>
+                                </div>
+                                <div class="metric-row">
+                                    <span class="metric-label">Power Output R²</span>
+                                    <span class="metric-value">0.079</span>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 8%"></div>
+                                    </div>
+                                </div>
+                                <div class="metric-row">
+                                    <span class="metric-label">Power Output RMSE</span>
+                                    <span class="metric-value">352.8 kW</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Economic Analysis Tab -->
+            <div id="economic-analysis" class="tab-content">
+                <div class="economic-section">
+                    <div class="economic-summary">
+                        <div class="card">
+                            <div class="card__header">
+                                <h3>Financial Performance Summary</h3>
+                                <button class="btn btn--primary" id="generateReport">Generate Report</button>
+                            </div>
+                            <div class="card__body">
+                                <div class="economic-metrics">
+                                    <div class="economic-metric">
+                                        <h4>Best ROI Site</h4>
+                                        <p class="metric-value">Site A - 27.8%</p>
+                                        <p class="metric-detail">Coastal Plains - 3.6 year payback</p>
+                                    </div>
+                                    <div class="economic-metric">
+                                        <h4>Total Investment Required</h4>
+                                        <p class="metric-value">$10.6M</p>
+                                        <p class="metric-detail">All four sites combined</p>
+                                    </div>
+                                    <div class="economic-metric">
+                                        <h4>Expected Annual Revenue</h4>
+                                        <p class="metric-value">$2.19M</p>
+                                        <p class="metric-detail">Based on current energy prices</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="charts-row">
+                        <div class="card chart-card">
+                            <div class="chart-header">
+                                <h3>Development Costs by Site</h3>
+                            </div>
+                            <div class="chart-container" style="position: relative; height: 300px;">
+                                <canvas id="developmentCostsChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="card chart-card">
+                            <div class="chart-header">
+                                <h3>ROI & Payback Analysis</h3>
+                            </div>
+                            <div class="chart-container" style="position: relative; height: 300px;">
+                                <canvas id="roiAnalysisChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="chart-header">
+                            <h3>Annual Revenue Projections</h3>
+                        </div>
+                        <div class="chart-container" style="position: relative; height: 350px;">
+                            <canvas id="revenueProjectionsChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="data-sources">
+                    <h4>Data Sources</h4>
+                    <p>NOAA, OpenWeather API</p>
+                </div>
+                <div class="last-updated">
+                    <p>Last Updated: <span id="lastUpdated"></span></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>

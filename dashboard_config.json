@@ -1,0 +1,27 @@
+{
+  "project_info": {
+    "name": "Wind Energy Feasibility Assessment Dashboard",
+    "description": "Interactive tool for evaluating wind energy potential and site selection",
+    "version": "1.0.0",
+    "last_updated": "2025-09-13"
+  },
+  "data_sources": [
+    "Historical wind speed and weather data (NOAA/OpenWeather)",
+    "Wind turbine power curves",
+    "Geographic and terrain information",
+    "Economic and regulatory data"
+  ],
+  "key_features": [
+    "Real-time wind speed forecasting",
+    "Site suitability analysis",
+    "Economic feasibility calculations",
+    "Interactive mapping and visualization",
+    "Export capabilities for reports"
+  ],
+  "model_info": {
+    "wind_speed_r2": 0.16,
+    "wind_speed_rmse": 1.478,
+    "power_output_r2": 0.079,
+    "power_output_rmse": 120.245
+  }
+}

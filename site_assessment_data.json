@@ -1,0 +1,56 @@
+{
+  "locations": [
+    {
+      "name": "Site A - Coastal Plains",
+      "latitude": 34.0522,
+      "longitude": -118.2437,
+      "elevation": 71,
+      "avg_wind_speed": 8.2,
+      "capacity_factor": 0.28,
+      "estimated_annual_energy": 4920,
+      "site_suitability": "Excellent",
+      "distance_to_grid": 5.2,
+      "environmental_constraints": "Low",
+      "development_cost": 2.1
+    },
+    {
+      "name": "Site B - Hills",
+      "latitude": 36.7783,
+      "longitude": -119.4179,
+      "elevation": 450,
+      "avg_wind_speed": 7.1,
+      "capacity_factor": 0.22,
+      "estimated_annual_energy": 3856,
+      "site_suitability": "Good",
+      "distance_to_grid": 12.8,
+      "environmental_constraints": "Medium",
+      "development_cost": 2.8
+    },
+    {
+      "name": "Site C - Mountain Ridge",
+      "latitude": 39.7392,
+      "longitude": -104.9903,
+      "elevation": 1609,
+      "avg_wind_speed": 9.5,
+      "capacity_factor": 0.35,
+      "estimated_annual_energy": 6132,
+      "site_suitability": "Excellent",
+      "distance_to_grid": 18.5,
+      "environmental_constraints": "High",
+      "development_cost": 3.4
+    },
+    {
+      "name": "Site D - Prairie",
+      "latitude": 41.8781,
+      "longitude": -87.6298,
+      "elevation": 182,
+      "avg_wind_speed": 6.8,
+      "capacity_factor": 0.19,
+      "estimated_annual_energy": 3328,
+      "site_suitability": "Fair",
+      "distance_to_grid": 8.1,
+      "environmental_constraints": "Low",
+      "development_cost": 2.3
+    }
+  ]
+}
